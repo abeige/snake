@@ -1,5 +1,5 @@
-build: main.o driver.o
-	g++ -Wall -g -std=c++11 main.o driver.o -o snake.exe
+build: main.o board.o snake.o
+	g++ -Wall -g -std=c++11 main.o board.o snake.o -o snake.exe
 
 run:
 	./snake.exe
@@ -7,5 +7,8 @@ run:
 main.o: main.cpp
 	g++ -c main.cpp
 
-driver.o: driver.cpp
-	g++ -c driver.cpp
+board.o: board.cpp
+	g++ -c board.cpp
+
+snake.o: snake.cpp
+	g++ -c snake.cpp

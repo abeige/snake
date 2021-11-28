@@ -1,8 +1,7 @@
-#include <stdio.h>
-#include <string>
+#include <iostream>
 #include <conio.h>
 #include <windows.h>
-#include "driver.h"
+#include "board.h"
 using namespace std;
 
 #define UP_ARROW 72
@@ -20,8 +19,8 @@ int main() {
 	resize();
 	hidecursor();
 
-	printf("\n\n   Welcome to snake.\n");
-	printf("    [START]  EXIT   \r");
+	cout << "\n\n   Welcome to snake.\n";
+	cout << "    [START]  EXIT   \r";
 
 	int key;
 	bool start = true;
@@ -30,10 +29,10 @@ int main() {
 	while (menu){
 		key = getch();
 		if (key == RIGHT_ARROW) {
-			printf("     START  [EXIT]  \r");
+			cout << "     START  [EXIT]  \r";
 			start = false;
 		} else if (key == LEFT_ARROW) {
-			printf("    [START]  EXIT   \r");
+			cout << "    [START]  EXIT   \r";
 			start = true;
 		} else if (key == 13) {
 			if (start) {
@@ -41,15 +40,15 @@ int main() {
 				menu = false;
 				game = true;
 			} else {
-				printf("\n\n");
+				cout << "\n\n";
 				return 0;
 			}
 		}
 	}
 
-	Driver d;
+	Board b;
 	while (game) {
-		d.run();
+		b.play();
 		game = false;
 	}
 
@@ -81,5 +80,5 @@ void resize() {
 }
 
 void clear() {
-    printf("\x1B[2J\x1B[H");
+    cout << "\x1B[2J\x1B[H";
 }

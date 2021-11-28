@@ -9,6 +9,7 @@ using namespace std;
 #define LEFT_ARROW 75
 #define RIGHT_ARROW 77
 #define CTRL_C 3
+#define ENTER 13
 
 void hidecursor();
 void showcursor();
@@ -28,27 +29,34 @@ int main() {
 	bool game = false;
 	while (menu){
 		key = getch();
-		if (key == RIGHT_ARROW) {
-			cout << "     START  [EXIT]  \r";
-			start = false;
-		} else if (key == LEFT_ARROW) {
-			cout << "    [START]  EXIT   \r";
-			start = true;
-		} else if (key == 13) {
-			if (start) {
-				clear();
-				menu = false;
-				game = true;
-			} else {
-				cout << "\n\n";
-				return 0;
-			}
+		switch (key) {
+			case RIGHT_ARROW:
+				cout << "     START  [EXIT]  \r";
+				start = false;
+			case LEFT_ARROW:
+				cout << "    [START]  EXIT   \r";
+				start = true;
+			case ENTER:
+				if (start) {
+					clear();
+					menu = false;
+					game = true;
+				} else {
+					cout << "\n\n";
+					return 0;
+				}
 		}
 	}
 
 	Board b;
 	while (game) {
-		b.play();
+		b.printBoard();
+		cout << "\n\n    Press enter to start the game." << endl;
+		key = getch();
+		if (key == ENTER) {
+			clear();
+			// b.play();
+		}
 		game = false;
 	}
 

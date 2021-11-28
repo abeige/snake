@@ -41,20 +41,24 @@ int Board::getNumCols() {
 }
 
 void Board::initBoard() {
-	// first and last rows
-	for (int c = 0; c < numCols; c++) {
-		board[0][c] = '*';
-		board[numRows - 1][c] = '*';
-	}
+	// first row
+	vector<char> rowFirstLast(numCols, '*');
+	board.push_back(rowFirstLast);
 
 	// middle rows
-	for (int r = 1; r < numRows - 1; r++) {
-		board[r][0] = '*';
-		for (int c = 1; c < numCols - 1; c++) {
-			board[r][c] = ' ';
-		}
-		board[r][numCols - 1] = '*';
+	vector<char> rowMid;
+	rowMid.push_back('*');
+	for (int c = 1; c < numCols - 1; c++) {
+		rowMid.push_back(' ');
 	}
+	rowMid.push_back('*');
+
+	for (int r = 1; r < numRows - 1; r++) {
+		board.push_back(rowMid);
+	}
+
+	// last row
+	board.push_back(rowFirstLast);
 }
 
 void Board::play() {

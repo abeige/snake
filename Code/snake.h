@@ -5,14 +5,18 @@ using namespace std;
 
 class Snake {
  private:
-	pair<int, int> headCoords;
+	NODE* head;
 	int length;
     char direction;
 
  public:
 	Snake();
     Snake(int x, int y);
+    ~Snake();
+    // copy constructor
+    // assignment operator
 
 	int getLength();
     pair<int, int>& getHeadCoords();
+    // add segment
 };

@@ -7,17 +7,18 @@ using namespace std;
 Board::Board() {
 	numRows = 10;
 	numCols = 10;
+	snake = Snake(5, 5);
 
 	initBoard();
 }
 
 Board::Board(int r, int c) {
-	if (r < 2 || c < 2) {
+	if (r < 2 || c < 2)
 		throw string("that's too small");
-	}
 
 	numRows = r;
 	numCols = c;
+	snake = Snake(r/2, c/2);
 
 	initBoard();
 }
@@ -59,6 +60,11 @@ void Board::initBoard() {
 
 	// last row
 	board.push_back(rowFirstLast);
+
+	// place snake
+	// placeSnake();
+	// pair<int, int> snakeStart = snake.getHeadCoords();
+	// board[snakeStart.first][snakeStart.second] = 'v';
 }
 
 void Board::play() {

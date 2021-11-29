@@ -2,6 +2,7 @@
 #include <conio.h>
 #include <windows.h>
 #include "board.h"
+#include "util.h"
 using namespace std;
 
 #define UP_ARROW 72
@@ -11,14 +12,10 @@ using namespace std;
 #define CTRL_C 3
 #define ENTER 13
 
-void hidecursor();
-void showcursor();
-void resize();
-void clear();
-
 int main() {
 	resize();
 	hidecursor();
+	clear();
 
 	cout << "\n\n   Welcome to snake.\n";
 	cout << "    [START]  EXIT   \r";
@@ -27,15 +24,17 @@ int main() {
 	bool start = true;
 	bool menu = true;
 	bool game = false;
-	while (menu){
+	while (menu) {
 		key = getch();
 		switch (key) {
 			case RIGHT_ARROW:
 				cout << "     START  [EXIT]  \r";
 				start = false;
+				break;
 			case LEFT_ARROW:
 				cout << "    [START]  EXIT   \r";
 				start = true;
+				break;
 			case ENTER:
 				if (start) {
 					clear();
@@ -45,48 +44,19 @@ int main() {
 					cout << "\n\n";
 					return 0;
 				}
+				break;
 		}
 	}
 
 	Board b;
 	while (game) {
 		b.printBoard();
-		cout << "\n\n    Press enter to start the game." << endl;
+		cout << "\n  Press any key to start the game." << endl;
 		key = getch();
-		if (key == ENTER) {
-			clear();
-			// b.play();
-		}
+		b.play();
 		game = false;
 	}
 
 	showcursor();
 	return 0;
-}
-
-void hidecursor() {
-   HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
-   CONSOLE_CURSOR_INFO info;
-   info.dwSize = 100;
-   info.bVisible = FALSE;
-   SetConsoleCursorInfo(consoleHandle, &info);
-}
-
-void showcursor() {
-   HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
-   CONSOLE_CURSOR_INFO info;
-   info.dwSize = 100;
-   info.bVisible = TRUE;
-   SetConsoleCursorInfo(consoleHandle, &info);
-}
-
-void resize() {
-	HWND console = GetConsoleWindow();
-	RECT ConsoleRect;
-	GetWindowRect(console, &ConsoleRect);
-	MoveWindow(console, ConsoleRect.left, ConsoleRect.top, 600, 600, TRUE);
-}
-
-void clear() {
-    cout << "\x1B[2J\x1B[H";
 }

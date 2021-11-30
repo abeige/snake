@@ -1,2 +1,2 @@
 # snake
-practice with c++ graphics
+practice with c++ terminal interface

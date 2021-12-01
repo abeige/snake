@@ -9,14 +9,24 @@ class Snake {
 	int length;
     char direction;
 
+    struct NODE {
+        int x, y;
+        NODE* next;
+
+        NODE(int x, int y) {
+            this->x = x;
+            this->y = y;
+            next = nullptr;
+        }
+    };
+
  public:
 	Snake();
     Snake(int x, int y);
     ~Snake();
-    // copy constructor
-    // assignment operator
+    Snake(Snake& other);
+    // TODO: assignment operator
 
 	int getLength();
-    pair<int, int>& getHeadCoords();
-    // add segment
+    // TODO: add segment
 };

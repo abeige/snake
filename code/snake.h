@@ -22,11 +22,11 @@ class Snake {
 
  public:
 	Snake();
-    Snake(int x, int y);
+    Snake(int x, int y, char d);
     ~Snake();
     Snake(Snake& other);
     // TODO: assignment operator
 
 	int getLength();
-    // TODO: add segment
+    void addSegment(int x, int y);
 };

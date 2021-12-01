@@ -7,7 +7,7 @@ using namespace std;
 Board::Board() {
 	numRows = 10;
 	numCols = 10;
-	snake = Snake(5, 5);
+	snake = Snake(5, 5, 'S');
 
 	initBoard();
 }
@@ -18,7 +18,7 @@ Board::Board(int r, int c) {
 
 	numRows = r;
 	numCols = c;
-	snake = Snake(r/2, c/2);
+	snake = Snake(r/2, c/2, 'S');
 
 	initBoard();
 }

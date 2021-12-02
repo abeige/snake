@@ -11,7 +11,7 @@ Snake::Snake() {
 
 // parameterized constructor
 Snake::Snake(int r, int c, char d) {
-	head = new NODE(x, y);
+	head = new NODE(r, c);
 	length = 1;
 	switch(d) {
 		case NORTH:

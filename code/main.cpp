@@ -1,47 +1,53 @@
-#include <iostream>
-#include <conio.h>
-#include <windows.h>
+#include <string>
+#include <curses.h>
 #include "board.h"
-#include "util.h"
+// #include "util.h"
 using namespace std;
 
-#define UP_ARROW 72
-#define DOWN_ARROW 80
-#define LEFT_ARROW 75
-#define RIGHT_ARROW 77
-#define CTRL_C 3
-#define ENTER 13
+#define KEY_RETURN 10
 
 int main() {
-	resize();
-	hidecursor();
-	clear();
-
-	cout << "\n\n   Welcome to snake.\n";
-	cout << "    [START]  EXIT   \r";
+	// resize();
 
 	int key;
 	bool start = true;
 	bool menu = true;
 	bool game = false;
+
+	initscr();
+	noecho();
+	cbreak();
+	curs_set(0);
+	keypad(stdscr, true);
+
+	// for (int i = 0; i < 10; i++) {
+	// 	key = getch();
+	// 	cout << key << "\r\n";
+	// }
+
+	printw("\n\n  Welcome to snake. ");
+	printw("\n\r   [START]  EXIT    ");
+	refresh();
+
 	while (menu) {
 		key = getch();
 		switch (key) {
-			case RIGHT_ARROW:
-				cout << "     START  [EXIT]  \r";
+			case KEY_RIGHT:
+				printw("\r    START  [EXIT]   ");
+				refresh();
 				start = false;
 				break;
-			case LEFT_ARROW:
-				cout << "    [START]  EXIT   \r";
+			case KEY_LEFT:
+				printw("\r   [START]  EXIT    ");
+				refresh();
 				start = true;
 				break;
-			case ENTER:
+			case KEY_RETURN:
 				if (start) {
-					clear();
+					erase();
 					menu = false;
 					game = true;
 				} else {
-					cout << "\n\n";
 					return 0;
 				}
 				break;
@@ -51,12 +57,16 @@ int main() {
 	Board b;
 	while (game) {
 		b.printBoard();
-		cout << "\n  Press any key to start the game." << endl;
+		printw("\n\r  Press return to start the game.");
 		key = getch();
+		while (key != KEY_RETURN) {
+			key = getch();
+		}
 		b.play();
 		game = false;
 	}
 
-	showcursor();
+	endwin();
+	curs_set(1);
 	return 0;
 }

@@ -1,5 +1,6 @@
-#include <iostream>
 #include <vector>
+#include <string>
+#include <curses.h>
 #include "board.h"
 #include "snake.h"
 using namespace std;
@@ -68,20 +69,15 @@ void Board::initBoard() {
 }
 
 void Board::play() {
-	cout << "Playing" << endl;
+	printw("Playing...");
 }
 
 void Board::printBoard() {
+	mvprintw(0, 0, "Snake Game\n\r");
 	for (int r = 0; r < numRows; r++) {
 		for (int c = 0; c < numCols; c++) {
-			cout << board[r][c] << ' ';
+			printw("%c ", board[r][c]);
 		}
-		cout << endl;
+		printw("\n\r");
 	}
-
-	// // print board
-	// cout << "Snake Game\n";
-	// for (int r = 0; r < num_rows; r++) {
-	// 	cout << "%s\n", board[r]);
-	// }
 }

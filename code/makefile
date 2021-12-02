@@ -1,5 +1,5 @@
 build: main.o board.o snake.o
-	g++ -Wall -g -std=c++11 main.o board.o snake.o -o snake.exe
+	g++ -Wall -g -std=c++11 main.o board.o snake.o -o snake -lncurses
 
 run:
 	./snake.exe

@@ -8,7 +8,7 @@ Board::Board() {
 	numCols = 10;
 	// + 2 for padding
 	board = vector<vector<char>>(numRows + 2, vector<char>(numCols + 2, '*'));
-	snake = Snake();
+	snake = Snake(5, 5, NORTH);
 }
 
 Board::Board(int r, int c) {

@@ -1,20 +1,28 @@
-#include <utility>
-#include <curses.h>
 #include "snake.h"
+#include "util.h"
 using namespace std;
 
 // default constructor
 Snake::Snake() {
 	head = nullptr;
 	length = 0;
-	direction = 'N';
+	direction = NORTH;
 }
 
 // parameterized constructor
 Snake::Snake(int x, int y, char d) {
 	head = new NODE(x, y);
 	length = 1;
-	direction = d;
+	switch(d) {
+		case NORTH:
+		case SOUTH:
+		case EAST:
+		case WEST:
+			direction = d;
+			break;
+		default:
+			direction = NORTH;
+	}
 }
 
 // destructor
@@ -54,6 +62,23 @@ Snake& Snake::operator=(const Snake& other) {
 	return *this;
 }
 
+// getDirection:
+// return direction of snake head
+char Snake::getDirection() {
+	return direction;
+}
+
+// getLength:
+// return length of snake (head + number of segments)
+int Snake::getLength() {
+	return length;
+}
+
+void Snake::getHeadCoords(int& x, int& y) {
+	x = head->x;
+	y = head->y;
+}
+
 void Snake::clear() {
 	if (head == nullptr)
 		return;
@@ -68,12 +93,6 @@ void Snake::clear() {
 	}
 
 	head = nullptr;
-}
-
-// getLength:
-// return length of snake (head + number of segments)
-int Snake::getLength() {
-	return length;
 }
 
 // addSegment:

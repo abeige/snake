@@ -1,7 +1,5 @@
-#include <string>
-#include <curses.h>
-#include <unistd.h>
 #include "board.h"
+#include "util.h"
 using namespace std;
 
 int main() {

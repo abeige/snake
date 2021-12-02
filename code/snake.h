@@ -1,8 +1,5 @@
 #pragma once
 
-#include <utility>
-using namespace std;
-
 struct NODE {
     int x, y;
     NODE* next;

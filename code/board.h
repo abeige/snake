@@ -1,12 +1,12 @@
 #pragma once
 
-#include <vector>
 #include "snake.h"
+#include "util.h"
 using namespace std;
 
 class Board {
  private:
-	vector<vector<char>> board;
+	vector<vector<char>> board;  // numRows+2 x numCols+2 for padding
 	Snake snake;
 	int numRows;
 	int numCols;

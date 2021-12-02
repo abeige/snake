@@ -1,28 +1,26 @@
-#include <vector>
-#include <string>
-#include <curses.h>
 #include "board.h"
 #include "snake.h"
+#include "util.h"
 using namespace std;
 
 Board::Board() {
-	board = vector<vector<char>>(10, vector<char>(10, '*'));
 	numRows = 10;
 	numCols = 10;
+	// + 2 for padding
+	board = vector<vector<char>>(numRows + 2, vector<char>(numCols + 2, '*'));
 	snake = Snake();
 }
 
 Board::Board(int r, int c) {
-	if (r < 2 || c < 2)
-		throw string("that's too small");
+	if (r < 2 || c < 2)  // too small
+		r = c = 2;
 
-	board = vector<vector<char>>(r, vector<char>(c, '*'));
 	numRows = r;
 	numCols = c;
-	snake = Snake(r/2, c/2, 'S');
+	// + 2 for padding
+	board = vector<vector<char>>(numRows + 2, vector<char>(numCols + 2, '*'));
+	snake = Snake(numRows/2, numCols/2, SOUTH);
 }
-
-// TO DO: operator[]
 
 void Board::setNumRows(int r) {
 	numRows = r;

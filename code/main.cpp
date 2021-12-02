@@ -1,10 +1,6 @@
-#include <string>
-#include <curses.h>
-#include <unistd.h>
 #include "board.h"
+#include "util.h"
 using namespace std;
-
-#define KEY_RETURN 10
 
 int main() {
 	int key;

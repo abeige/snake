@@ -14,16 +14,14 @@ class Board {
  public:
 	Board();
 	Board(int r, int c);
-    // TODO: Board(Board& other);
-	// TODO: Board& operator=(Board& other);
 
 	void setNumRows(int r);
 	int getNumRows();
 	void setNumCols(int c);
 	int getNumCols();
 
+    void play();
 	void initBoard();
-	void printSnake();
-	void play();
+	void placeSnake();
 	void printBoard();
 };

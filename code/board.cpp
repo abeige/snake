@@ -38,43 +38,41 @@ int Board::getNumCols() {
 	return numCols;
 }
 
-void Board::initBoard() {
-	// first row
-	vector<char> rowFirstLast(numCols, '*');
-	board.push_back(rowFirstLast);
-
-	// middle rows
-	vector<char> rowMid;
-	rowMid.push_back('*');
-	for (int c = 1; c < numCols - 1; c++) {
-		rowMid.push_back(' ');
+void Board::play() {
+	erase();
+	initBoard();
+	printBoard();
+	printw("\n\r  Press return to start the game.");
+	int key = getch();
+	while (key != KEY_RETURN) {
+		key = getch();
 	}
-	rowMid.push_back('*');
-
-	for (int r = 1; r < numRows - 1; r++) {
-		board.push_back(rowMid);
-	}
-
-	// last row
-	board.push_back(rowFirstLast);
-
-	// place snake
-	// placeSnake();
-	// pair<int, int> snakeStart = snake.getHeadCoords();
-	// board[snakeStart.first][snakeStart.second] = 'v';
 }
 
-void Board::play() {
-	printw("Playing...");
+void Board::initBoard() {
+	for (int r = 1; r < numRows + 1; r++) {
+		for (int c = 1; c < numCols + 1; c++) {
+			board[r][c] = ' ';
+		}
+	}
+}
+
+void Board::placeSnake() {
+	int x, y;
+	snake.getHeadCoords(x, y);
+	board[x][y] = snake.getDirection();
 }
 
 void Board::printBoard() {
 	mvprintw(0, 0, "Snake Game\n\r");
-	for (int r = 0; r < numRows; r++) {
-		for (int c = 0; c < numCols; c++) {
+
+	placeSnake();
+	for (int r = 0; r < board.size(); r++) {
+		for (int c = 0; c < board[0].size(); c++) {
 			printw("%c ", board[r][c]);
 		}
 		printw("\n\r");
 	}
+
 	refresh();
 }

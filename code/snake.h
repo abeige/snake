@@ -13,9 +13,9 @@ struct NODE {
 
 class Snake {
  private:
-	NODE* head;
 	int length;
     char direction;
+   	NODE* head;
 
  public:
 	Snake();
@@ -24,7 +24,10 @@ class Snake {
     Snake(Snake& other);
     Snake& operator=(const Snake& other);
 
+    int getLength();
+    char getDirection();
+    void getHeadCoords(int& x, int& y);
+
     void clear();
-	int getLength();
     void addSegment(int x, int y);
 };

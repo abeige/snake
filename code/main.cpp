@@ -23,12 +23,10 @@ int main() {
 		switch (key) {
 			case KEY_RIGHT:
 				printw("\r    START  [EXIT]   ");
-				refresh();
 				start = false;
 				break;
 			case KEY_LEFT:
 				printw("\r   [START]  EXIT    ");
-				refresh();
 				start = true;
 				break;
 			case KEY_RETURN:

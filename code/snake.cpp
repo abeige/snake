@@ -4,9 +4,9 @@ using namespace std;
 
 // default constructor
 Snake::Snake() {
-	head = nullptr;
+	head = new NODE(1, 1);
 	length = 0;
-	direction = NORTH;
+	direction = SOUTH;
 }
 
 // parameterized constructor
@@ -75,6 +75,8 @@ int Snake::getLength() {
 }
 
 void Snake::getHeadCoords(int& x, int& y) {
+	if (head == nullptr)
+		return;
 	x = head->x;
 	y = head->y;
 }

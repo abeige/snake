@@ -43,6 +43,14 @@ int main() {
 
 	Board b;
 	while (game) {
+		erase();
+		b.initBoard();
+		b.printBoard();
+		printw("\n\r  Press return to start the game.");
+		int key = getch();
+		while (key != KEY_RETURN) {
+			key = getch();
+		}
 		b.play();
 		game = false;
 	}

@@ -120,3 +120,25 @@ void Snake::addSegment(int r, int c) {
 		cur = cur->next;
 	}
 }
+
+void Snake::moveForward(int& r, int& c) {
+	// first update head
+	switch(direction) {
+		case NORTH:
+			head->r--;
+			break;
+		case SOUTH:
+			head->r++;
+			break;
+		case EAST:
+			head->c++;
+			break;
+		case WEST:
+			head->c--;
+			break;
+	}
+	r = head->r;
+	c = head->c;
+	// TODO: break if head hits wall
+	// TODO: segments follow
+}

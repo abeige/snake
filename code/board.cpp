@@ -39,13 +39,14 @@ int Board::getNumCols() {
 }
 
 void Board::play() {
-	erase();
-	initBoard();
-	printBoard();
-	printw("\n\r  Press return to start the game.");
-	int key = getch();
-	while (key != KEY_RETURN) {
-		key = getch();
+	bool hitWall = false;
+	while (!hitWall) {
+		int r, c;
+		snake.moveForward(r, c);
+		if (board[r][c] == '*')
+			hitWall = true;
+		printBoard();
+		usleep(400000);
 	}
 }
 
@@ -66,6 +67,7 @@ void Board::placeSnake() {
 void Board::printBoard() {
 	mvprintw(0, 0, "Snake Game\n\r");
 
+	initBoard();
 	placeSnake();
 	for (int r = 0; r < board.size(); r++) {
 		for (int c = 0; c < board[0].size(); c++) {

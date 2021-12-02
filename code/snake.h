@@ -30,5 +30,5 @@ class Snake {
 
     void clear();
     void addSegment(int r, int c);
-    void moveForward(int r, int c);
+    void moveForward(int& r, int& c);
 };

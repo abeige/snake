@@ -10,7 +10,7 @@ Snake::Snake() {
 }
 
 // parameterized constructor
-Snake::Snake(int x, int y, char d) {
+Snake::Snake(int r, int c, char d) {
 	head = new NODE(x, y);
 	length = 1;
 	switch(d) {
@@ -39,7 +39,7 @@ Snake::Snake(Snake& other) {
 	// copy nodes
 	NODE* cur = other.head;
 	while (cur != nullptr) {
-		addSegment(cur->x, cur->y);
+		addSegment(cur->r, cur->c);
 		cur = cur->next;
 	}
 }
@@ -55,7 +55,7 @@ Snake& Snake::operator=(const Snake& other) {
 	// copy nodes
 	NODE* cur = other.head;
 	while (cur != nullptr) {
-		addSegment(cur->x, cur->y);
+		addSegment(cur->r, cur->c);
 		cur = cur->next;
 	}
 
@@ -74,11 +74,11 @@ int Snake::getLength() {
 	return length;
 }
 
-void Snake::getHeadCoords(int& x, int& y) {
+void Snake::getHeadCoords(int& r, int& c) {
 	if (head == nullptr)
 		return;
-	x = head->x;
-	y = head->y;
+	r = head->r;
+	c = head->c;
 }
 
 void Snake::clear() {
@@ -98,8 +98,8 @@ void Snake::clear() {
 }
 
 // addSegment:
-void Snake::addSegment(int x, int y) {
-	NODE* newNode = new NODE(x, y);
+void Snake::addSegment(int r, int c) {
+	NODE* newNode = new NODE(r, c);
 
 	// check to see if list is empty
 	if (head == nullptr) {

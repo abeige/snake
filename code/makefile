@@ -1,11 +1,11 @@
 build: main.o board.o snake.o
-	g++ -Wall -g -std=c++11 main.o board.o snake.o -o snake -lncurses
+	g++ -Wall -g -std=c++11 main.o board.o snake.o -o snakegame.exe -lncurses
 
 test: test.o board.o snake.o
-	g++ -Wall -g -std=c++11 test.o board.o snake.o -o snake -lncurses
+	g++ -Wall -g -std=c++11 test.o board.o snake.o -o snakegame.exe -lncurses
 
 run:
-	./snake
+	./snakegame.exe
 
 main.o: main.cpp
 	g++ -c main.cpp

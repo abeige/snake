@@ -25,8 +25,9 @@ class Snake {
     Snake(int x, int y, char d);
     ~Snake();
     Snake(Snake& other);
-    // TODO: assignment operator
+    Snake& operator=(const Snake& other);
 
+    void clear();
 	int getLength();
     void addSegment(int x, int y);
 };

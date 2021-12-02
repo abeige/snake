@@ -14,7 +14,8 @@ class Board {
  public:
 	Board();
 	Board(int r, int c);
-	// TO DO: operator[]
+    // TODO: Board(Board& other);
+	// TODO: Board& operator=(Board& other);
 
 	void setNumRows(int r);
 	int getNumRows();

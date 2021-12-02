@@ -6,22 +6,20 @@
 using namespace std;
 
 Board::Board() {
+	board = vector<vector<char>>(10, vector<char>(10, '*'));
 	numRows = 10;
 	numCols = 10;
-	snake = Snake(5, 5, 'S');
-
-	initBoard();
+	snake = Snake();
 }
 
 Board::Board(int r, int c) {
 	if (r < 2 || c < 2)
 		throw string("that's too small");
 
+	board = vector<vector<char>>(r, vector<char>(c, '*'));
 	numRows = r;
 	numCols = c;
 	snake = Snake(r/2, c/2, 'S');
-
-	initBoard();
 }
 
 // TO DO: operator[]
@@ -80,4 +78,5 @@ void Board::printBoard() {
 		}
 		printw("\n\r");
 	}
+	refresh();
 }

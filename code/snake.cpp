@@ -1,4 +1,5 @@
 #include <utility>
+#include <curses.h>
 #include "snake.h"
 using namespace std;
 
@@ -18,18 +19,7 @@ Snake::Snake(int x, int y, char d) {
 
 // destructor
 Snake::~Snake() {
-	if (head == nullptr)
-		return;
-	NODE* cur = head;
-	NODE* prev = nullptr;
-
-	while (cur != nullptr) {
-		prev = cur;
-		cur = cur->next;
-		delete prev;
-	}
-
-	head = nullptr;
+	clear();
 }
 
 // copy constructor
@@ -44,6 +34,40 @@ Snake::Snake(Snake& other) {
 		addSegment(cur->x, cur->y);
 		cur = cur->next;
 	}
+}
+
+Snake& Snake::operator=(const Snake& other) {
+	if (this == &other)
+		return *this;
+
+	this->length = other.length;
+	this->direction = other.direction;
+	this->clear();
+
+	// copy nodes
+	NODE* cur = other.head;
+	while (cur != nullptr) {
+		addSegment(cur->x, cur->y);
+		cur = cur->next;
+	}
+
+	return *this;
+}
+
+void Snake::clear() {
+	if (head == nullptr)
+		return;
+
+	NODE* cur = head;
+	NODE* next = nullptr;
+
+	while (cur != nullptr) {
+		next = cur->next;
+		delete cur;
+		cur = next;
+	}
+
+	head = nullptr;
 }
 
 // getLength:
@@ -68,6 +92,7 @@ void Snake::addSegment(int x, int y) {
 	while (cur != nullptr) {
 		if (cur->next == nullptr) {
 			cur->next = newNode;
+			length++;
 			break;
 		}
 

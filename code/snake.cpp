@@ -110,6 +110,12 @@ int Snake::getLength() {
 	return length;
 }
 
+// getHead:
+// returns a pointer to snake head
+NODE* Snake::getHead() const{
+	return head;
+}
+
 // getHeadCoords:
 // updates r and c with coordinates of Snake head
 void Snake::getHeadCoords(int& r, int& c) {

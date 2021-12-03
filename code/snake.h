@@ -30,6 +30,7 @@ class Snake {
     int getLength();
     char getDirection();
     void setDirection(char d);
+    NODE* getHead() const;
     void getHeadCoords(int& r, int& c);
 
     void moveForward(int& r, int& c);

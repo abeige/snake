@@ -68,6 +68,10 @@ char Snake::getDirection() {
 	return direction;
 }
 
+void Snake::setDirection(char d) {
+	direction = d;
+}
+
 // getLength:
 // return length of snake (head + number of segments)
 int Snake::getLength() {
@@ -139,6 +143,5 @@ void Snake::moveForward(int& r, int& c) {
 	}
 	r = head->r;
 	c = head->c;
-	// TODO: break if head hits wall
 	// TODO: segments follow
 }

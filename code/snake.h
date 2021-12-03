@@ -26,6 +26,7 @@ class Snake {
 
     int getLength();
     char getDirection();
+    void setDirection(char d);
     void getHeadCoords(int& r, int& c);
 
     void clear();

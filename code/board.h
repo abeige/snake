@@ -21,6 +21,7 @@ class Board {
 	int getNumCols();
 
     void play();
+    void changeDirection();
 	void initBoard();
 	void placeSnake();
 	void printBoard();

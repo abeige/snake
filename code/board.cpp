@@ -39,14 +39,38 @@ int Board::getNumCols() {
 }
 
 void Board::play() {
+	nodelay(stdscr, true);
 	bool hitWall = false;
+	int r, c;
+	int frames = 0;
 	while (!hitWall) {
-		int r, c;
+		if (frames % 50 == 0)
+			addApple();
+		changeDirection();
 		snake.moveForward(r, c);
 		if (board[r][c] == '*')
 			hitWall = true;
 		printBoard();
-		usleep(400000);
+		usleep(100000);
+	}
+}
+
+void Board::changeDirection() {
+	switch(getch()) {
+		case KEY_UP:
+			snake.setDirection(NORTH);
+			break;
+		case KEY_DOWN:
+			snake.setDirection(SOUTH);
+			break;
+		case KEY_RIGHT:
+			snake.setDirection(EAST);
+			break;
+		case KEY_LEFT:
+			snake.setDirection(WEST);
+			break;
+		default:
+			break;
 	}
 }
 

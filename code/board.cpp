@@ -80,6 +80,9 @@ void Board::play() {
 	}
 }
 
+// changeDirection:
+// grab key input and change direction of snake
+// snake is not allowed to turn 180 degrees
 void Board::changeDirection() {
 	switch(getch()) {
 		case KEY_UP:
@@ -104,7 +107,7 @@ void Board::changeDirection() {
 }
 
 // initBoard:
-// resets board to char ' '
+// set board to all char ' '
 void Board::initBoard() {
 	for (int r = 1; r < numRows + 1; r++) {
 		for (int c = 1; c < numCols + 1; c++) {
@@ -121,6 +124,8 @@ void Board::placeSnake() {
 	board[r][c] = snake.getDirection();
 }
 
+// addApple:
+// add an apple in a random empty location
 void Board::addApple() {
 	int r = rand() % numRows + 1;
 	int c = rand() % numCols + 1;

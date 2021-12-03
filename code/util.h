@@ -3,6 +3,8 @@
 #define KEY_RETURN 10
 #define SPEED 150000
 #define APPLERATE 15
+#define APPLE '@'
+#define BODY 'o'
 #define NORTH '^'
 #define SOUTH 'v'
 #define EAST  '>'

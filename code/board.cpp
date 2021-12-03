@@ -69,8 +69,8 @@ void Board::play() {
 		board[r][c] = ' ';
 		snake.moveForward(r, c);
 		if (board[r][c] == '*') {
-			hitWall = true;
-		} else if (board[r][c] == 'o') {
+			collision = true;
+		} else if (board[r][c] == APPLE) {
 			snake.addSegment();
 			score++;
 		}
@@ -134,7 +134,7 @@ void Board::addApple() {
 		c = rand() % numCols + 1;
 	}
 
-	board[r][c] = 'o';
+	board[r][c] = APPLE;
 }
 
 // printBoard:

@@ -44,6 +44,7 @@ Snake::Snake(Snake& other) {
 	}
 }
 
+// copy operator
 Snake& Snake::operator=(const Snake& other) {
 	if (this == &other)
 		return *this;
@@ -74,6 +75,8 @@ int Snake::getLength() {
 	return length;
 }
 
+// getHeadCoords:
+// updates r and c with coordinates of Snake head
 void Snake::getHeadCoords(int& r, int& c) {
 	if (head == nullptr)
 		return;
@@ -81,6 +84,7 @@ void Snake::getHeadCoords(int& r, int& c) {
 	c = head->c;
 }
 
+// deletes Snake linked list of NODEs
 void Snake::clear() {
 	if (head == nullptr)
 		return;
@@ -98,6 +102,7 @@ void Snake::clear() {
 }
 
 // addSegment:
+// adds NODE to linked list with coordinates r and c
 void Snake::addSegment(int r, int c) {
 	NODE* newNode = new NODE(r, c);
 
@@ -121,6 +126,8 @@ void Snake::addSegment(int r, int c) {
 	}
 }
 
+// moveForward:
+// move snake (and all it's segments) forward in direction
 void Snake::moveForward(int& r, int& c) {
 	// first update head
 	switch(direction) {

@@ -54,8 +54,8 @@ int main() {
 		b.play();
 		game = false;
 	}
-
-	endwin();
+	
 	curs_set(1);
+	endwin();
 	return 0;
 }

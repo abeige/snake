@@ -3,6 +3,7 @@
 #include "util.h"
 using namespace std;
 
+// default constructor
 Board::Board() {
 	numRows = 10;
 	numCols = 10;
@@ -11,6 +12,7 @@ Board::Board() {
 	snake = Snake(5, 5, NORTH);
 }
 
+// parameterized constructor
 Board::Board(int r, int c) {
 	if (r < 2 || c < 2)  // too small
 		r = c = 2;
@@ -22,22 +24,32 @@ Board::Board(int r, int c) {
 	snake = Snake(numRows/2, numCols/2, SOUTH);
 }
 
+// setNumRows:
+// sets numRows to r
 void Board::setNumRows(int r) {
 	numRows = r;
 }
 
+// getNumRows:
+// returns numRows
 int Board::getNumRows() {
 	return numRows;
 }
 
+// setNumCols:
+// sets numCols to c
 void Board::setNumCols(int c) {
 	numCols = c;
 }
 
+// getNumCols:
+// returns numCols
 int Board::getNumCols() {
 	return numCols;
 }
 
+// play:
+// main driver for game to run
 void Board::play() {
 	bool hitWall = false;
 	while (!hitWall) {
@@ -50,6 +62,8 @@ void Board::play() {
 	}
 }
 
+// initBoard:
+// resets board to char ' '
 void Board::initBoard() {
 	for (int r = 1; r < numRows + 1; r++) {
 		for (int c = 1; c < numCols + 1; c++) {
@@ -58,12 +72,16 @@ void Board::initBoard() {
 	}
 }
 
+// placeSnake:
+// gets coordinates of snake and its body and puts it on the board
 void Board::placeSnake() {
 	int x, y;
 	snake.getHeadCoords(x, y);
 	board[x][y] = snake.getDirection();
 }
 
+// printBoard:
+// prints vector board
 void Board::printBoard() {
 	mvprintw(0, 0, "Snake Game\n\r");
 

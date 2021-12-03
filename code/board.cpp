@@ -56,9 +56,10 @@ int Board::getScore() {
 
 // play:
 // main driver for game to run
-void Board::play() {
+void Board::play(char startDir) {
 	nodelay(stdscr, true);
-	bool hitWall = false;
+	snake.setDirection(startDir);
+	bool collision = false;
 	int r, c;
 	int frames = 0;
 	while (!hitWall) {

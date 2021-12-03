@@ -67,8 +67,31 @@ int startGame() {
 	b.printBoard();
 	nodelay(stdscr, false);
 	printw("\n\r  Press an arrow key to start the game.");
-	b.changeDirection();
+	char startDirection;
+	bool start = false;
+	int key;
+	while(!start) {
+		key = getch();
+		switch(key) {
+			case KEY_UP:
+				startDirection = NORTH;
+				start = true;
+				break;
+			case KEY_DOWN:
+				startDirection = SOUTH;
+				start = true;
+				break;
+			case KEY_RIGHT:
+				startDirection = EAST;
+				start = true;
+				break;
+			case KEY_LEFT:
+				startDirection = WEST;
+				start = true;
+				break;
+		}
+	}
 	erase();
-	b.play();
+	b.play(startDirection);
 	return b.getScore();
 }

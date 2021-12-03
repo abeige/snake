@@ -25,7 +25,7 @@ class Board {
 	int getNumCols();
     int getScore();
 
-    void play();
+    void play(char startDir);
 	void initBoard();
     void changeDirection();
 	void printBoard();

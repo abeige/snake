@@ -37,11 +37,7 @@ Snake::Snake(Snake& other) {
 	this->head = nullptr;
 
 	// copy nodes
-	NODE* cur = other.head;
-	while (cur != nullptr) {
-		addSegment(cur->r, cur->c);
-		cur = cur->next;
-	}
+	this->copySnake(other);
 }
 
 // copy operator
@@ -54,13 +50,48 @@ Snake& Snake::operator=(const Snake& other) {
 	this->clear();
 
 	// copy nodes
-	NODE* cur = other.head;
-	while (cur != nullptr) {
-		addSegment(cur->r, cur->c);
-		cur = cur->next;
-	}
+	this->copySnake(other);
 
 	return *this;
+}
+
+// clear:
+// deletes Snake linked list of NODEs
+void Snake::clear() {
+	if (head == nullptr)
+		return;
+
+	NODE* cur = head;
+	NODE* next = nullptr;
+
+	while (cur != nullptr) {
+		next = cur->next;
+		delete cur;
+		cur = next;
+	}
+
+	head = nullptr;
+}
+
+// copySnake:
+// copy the snake NODE linked list
+void Snake::copySnake(const Snake& other) {
+	// copy head node
+	NODE* otherCur = other.getHead();
+	if (otherCur == nullptr) {
+		return;
+	} else {
+		this->head = new NODE(otherCur->r, otherCur->c);
+	}
+	otherCur = otherCur->next;
+
+	// copy segments
+	NODE* thisCur = this->head;
+	while (otherCur != nullptr) {
+		thisCur->next = new NODE(otherCur->r, otherCur->c);
+		thisCur = thisCur->next;
+		otherCur = otherCur->next;
+	}
 }
 
 // getDirection:
@@ -86,23 +117,6 @@ void Snake::getHeadCoords(int& r, int& c) {
 		return;
 	r = head->r;
 	c = head->c;
-}
-
-// deletes Snake linked list of NODEs
-void Snake::clear() {
-	if (head == nullptr)
-		return;
-
-	NODE* cur = head;
-	NODE* next = nullptr;
-
-	while (cur != nullptr) {
-		next = cur->next;
-		delete cur;
-		cur = next;
-	}
-
-	head = nullptr;
 }
 
 // addSegment:

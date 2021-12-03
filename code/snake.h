@@ -24,12 +24,14 @@ class Snake {
     Snake(Snake& other);
     Snake& operator=(const Snake& other);
 
+    void clear();
+    void copySnake(const Snake& other);
+
     int getLength();
     char getDirection();
     void setDirection(char d);
     void getHeadCoords(int& r, int& c);
 
-    void clear();
     void moveForward(int& r, int& c);
     void addSegment();
 };

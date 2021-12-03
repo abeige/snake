@@ -13,6 +13,7 @@ class Board {
     int score;
 
 	void placeSnake();
+    void removeSnake();
     void addApple();
 
  public:

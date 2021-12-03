@@ -62,19 +62,32 @@ void Board::play(char startDir) {
 	bool collision = false;
 	int r, c;
 	int frames = 0;
-	while (!hitWall) {
+	while (!collision) {
+		// add apple every APPLERATE frames
 		if (frames % APPLERATE == 0)
 			addApple();
+
+		// check for a change in direction from user
 		changeDirection();
-		snake.getHeadCoords(r, c);
-		board[r][c] = ' ';
-		snake.moveForward(r, c);
+
+		// remove the snake from the board
+		removeSnake();
+
+		// move the whole snake forward
+		collision = snake.moveForward(r, c);
+
+		// check to see if a wall or apple was hit
 		if (board[r][c] == '*') {
 			collision = true;
 		} else if (board[r][c] == APPLE) {
 			snake.addSegment();
 			score++;
 		}
+
+		// put the snake back on the board
+		placeSnake();
+
+		// print the new frame
 		printBoard();
 		usleep(SPEED);
 		frames++;
@@ -115,14 +128,38 @@ void Board::initBoard() {
 			board[r][c] = ' ';
 		}
 	}
+	placeSnake();
 }
 
 // placeSnake:
-// gets coordinates of snake and its body and puts it on the board
+// gets coordinates of snake and puts it on the board
 void Board::placeSnake() {
-	int r, c;
-	snake.getHeadCoords(r, c);
-	board[r][c] = snake.getDirection();
+	int prevR, prevC;
+
+	// place head
+	NODE* cur = snake.getHead();
+	board[cur->r][cur->c] = snake.getDirection();
+	prevR = cur->r;
+	prevC = cur->c;
+	cur = cur->next;
+
+	// place segments
+	while (cur != nullptr) {
+		if (cur->r == prevR && cur->c == prevC)
+			break;
+		board[cur->r][cur->c] = BODY;
+		cur = cur->next;
+	}
+}
+
+// removeSnake:
+// takes the snake off the board
+void Board::removeSnake() {
+	NODE* cur = snake.getHead();
+	while (cur != nullptr) {
+		board[cur->r][cur->c] = ' ';
+		cur = cur->next;
+	}
 }
 
 // addApple:
@@ -143,7 +180,6 @@ void Board::addApple() {
 void Board::printBoard() {
 	mvprintw(0, 0, "Snake Game   Score: %d\n\r", score);
 
-	placeSnake();
 	for (int r = 0; r < board.size(); r++) {
 		for (int c = 0; c < board[0].size(); c++) {
 			printw("%c ", board[r][c]);

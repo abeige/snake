@@ -10,7 +10,9 @@ Board::Board() {
 	score = 0;
 	// +2 for padding
 	board = vector<vector<char>>(numRows + 2, vector<char>(numCols + 2, '*'));
-	snake = Snake(5, 5, NORTH);
+	initBoard();
+	snake = Snake(5, 5, SOUTH);
+	board[5][5] = SOUTH;
 }
 
 // parameterized constructor
@@ -23,7 +25,9 @@ Board::Board(int r, int c) {
 	score = 0;
 	// +2 for padding
 	board = vector<vector<char>>(numRows + 2, vector<char>(numCols + 2, '*'));
+	initBoard();
 	snake = Snake(numRows/2, numCols/2, SOUTH);
+	board[numRows/2][numCols/2] = SOUTH;
 }
 
 // setNumRows:
@@ -128,7 +132,6 @@ void Board::initBoard() {
 			board[r][c] = ' ';
 		}
 	}
-	placeSnake();
 }
 
 // placeSnake:

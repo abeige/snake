@@ -4,6 +4,7 @@ using namespace std;
 
 bool startMenu(int& highScore);
 int startGame();
+void getStartDirection(char& startDir);
 
 int main() {
 	initscr();
@@ -62,36 +63,39 @@ bool startMenu(int& highScore) {
 
 int startGame() {
 	Board b(20, 20);
+
 	erase();
+	nodelay(stdscr, false);
 	b.initBoard();
 	b.printBoard();
-	nodelay(stdscr, false);
+
 	printw("\n\r  Press an arrow key to start the game.");
-	char startDirection;
-	bool start = false;
-	int key;
-	while(!start) {
-		key = getch();
-		switch(key) {
-			case KEY_UP:
-				startDirection = NORTH;
-				start = true;
-				break;
-			case KEY_DOWN:
-				startDirection = SOUTH;
-				start = true;
-				break;
-			case KEY_RIGHT:
-				startDirection = EAST;
-				start = true;
-				break;
-			case KEY_LEFT:
-				startDirection = WEST;
-				start = true;
-				break;
-		}
+	char startDir = 'x';
+	while(startDir == 'x') {
+		getStartDirection(startDir);
 	}
+
+	// play the game!
 	erase();
-	b.play(startDirection);
+	b.play(startDir);
+
 	return b.getScore();
+}
+
+void getStartDirection(char& startDir) {
+	int key = getch();
+	switch(key) {
+		case KEY_UP:
+			startDir = NORTH;
+			break;
+		case KEY_DOWN:
+			startDir = SOUTH;
+			break;
+		case KEY_RIGHT:
+			startDir = EAST;
+			break;
+		case KEY_LEFT:
+			startDir = WEST;
+			break;
+	}
 }

@@ -5,14 +5,12 @@ using namespace std;
 // default constructor
 Snake::Snake() {
 	head = new NODE(1, 1);
-	length = 0;
 	direction = SOUTH;
 }
 
 // parameterized constructor
 Snake::Snake(int r, int c, char d) {
 	head = new NODE(r, c);
-	length = 1;
 	switch(d) {
 		case NORTH:
 		case SOUTH:
@@ -32,7 +30,6 @@ Snake::~Snake() {
 
 // copy constructor
 Snake::Snake(Snake& other) {
-	this->length = other.length;
 	this->direction = other.direction;
 	this->head = nullptr;
 
@@ -45,7 +42,6 @@ Snake& Snake::operator=(const Snake& other) {
 	if (this == &other)
 		return *this;
 
-	this->length = other.length;
 	this->direction = other.direction;
 	this->clear();
 
@@ -102,12 +98,6 @@ char Snake::getDirection() {
 
 void Snake::setDirection(char d) {
 	direction = d;
-}
-
-// getLength:
-// return length of snake (head + number of segments)
-int Snake::getLength() {
-	return length;
 }
 
 // getHead:

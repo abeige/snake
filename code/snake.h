@@ -13,7 +13,6 @@ struct NODE {
 
 class Snake {
  private:
-	int length;
     char direction;
    	NODE* head;
 

@@ -33,6 +33,6 @@ class Snake {
     NODE* getHead() const;
     void getHeadCoords(int& r, int& c);
 
-    void moveForward(int& r, int& c);
     void addSegment();
+    bool moveForward(int& r, int& c);
 };

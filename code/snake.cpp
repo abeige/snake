@@ -144,7 +144,11 @@ void Snake::addSegment() {
 
 // moveForward:
 // move snake (and all it's segments) forward in direction
-void Snake::moveForward(int& r, int& c) {
+// r, c are updated and contain new head location for checking collisions
+// returns true if the new head position is a wall or body segment
+bool Snake::moveForward(int& r, int& c) {
+	int prevR = head->r;
+	int prevC = head->c;
 	// first update head
 	switch(direction) {
 		case NORTH:
@@ -162,5 +166,29 @@ void Snake::moveForward(int& r, int& c) {
 	}
 	r = head->r;
 	c = head->c;
-	// TODO: segments follow
+
+	if (head->next == nullptr)
+		return false;
+
+	NODE* cur = head->next;
+	int tempR, tempC;
+	bool collide = false;
+	while (cur != nullptr) {
+		// swap cur->r, c with prevR, C
+		tempR = cur->r;
+		tempC = cur->c;
+		cur->r = prevR;
+		cur->c = prevC;
+		prevR = tempR;
+		prevC = tempC;
+
+
+		// if new location of head with this segment
+		if (head->r == cur->r && head->c == cur->c)
+			collide = true;
+
+		cur = cur->next;
+	}
+
+	return collide;
 }

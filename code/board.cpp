@@ -7,7 +7,8 @@ using namespace std;
 Board::Board() {
 	numRows = 10;
 	numCols = 10;
-	// + 2 for padding
+	score = 0;
+	// +2 for padding
 	board = vector<vector<char>>(numRows + 2, vector<char>(numCols + 2, '*'));
 	snake = Snake(5, 5, NORTH);
 }
@@ -19,7 +20,8 @@ Board::Board(int r, int c) {
 
 	numRows = r;
 	numCols = c;
-	// + 2 for padding
+	score = 0;
+	// +2 for padding
 	board = vector<vector<char>>(numRows + 2, vector<char>(numCols + 2, '*'));
 	snake = Snake(numRows/2, numCols/2, SOUTH);
 }
@@ -48,17 +50,56 @@ int Board::getNumCols() {
 	return numCols;
 }
 
+int Board::getScore() {
+	return score;
+}
+
 // play:
 // main driver for game to run
 void Board::play() {
+	nodelay(stdscr, true);
 	bool hitWall = false;
+	int r, c;
+	int frames = 0;
 	while (!hitWall) {
-		int r, c;
+		if (frames % APPLERATE == 0)
+			addApple();
+		changeDirection();
+		snake.getHeadCoords(r, c);
+		board[r][c] = ' ';
 		snake.moveForward(r, c);
-		if (board[r][c] == '*')
+		if (board[r][c] == '*') {
 			hitWall = true;
+		} else if (board[r][c] == 'o') {
+			// snake.addSegment();
+			score++;
+		}
 		printBoard();
-		usleep(400000);
+		usleep(SPEED);
+		frames++;
+	}
+}
+
+void Board::changeDirection() {
+	switch(getch()) {
+		case KEY_UP:
+			if (snake.getDirection() != SOUTH)
+				snake.setDirection(NORTH);
+			break;
+		case KEY_DOWN:
+			if (snake.getDirection() != NORTH)
+				snake.setDirection(SOUTH);
+			break;
+		case KEY_RIGHT:
+			if (snake.getDirection() != WEST)
+				snake.setDirection(EAST);
+			break;
+		case KEY_LEFT:
+			if (snake.getDirection() != EAST)
+				snake.setDirection(WEST);
+			break;
+		default:
+			break;
 	}
 }
 
@@ -75,17 +116,27 @@ void Board::initBoard() {
 // placeSnake:
 // gets coordinates of snake and its body and puts it on the board
 void Board::placeSnake() {
-	int x, y;
-	snake.getHeadCoords(x, y);
-	board[x][y] = snake.getDirection();
+	int r, c;
+	snake.getHeadCoords(r, c);
+	board[r][c] = snake.getDirection();
+}
+
+void Board::addApple() {
+	int r = rand() % numRows + 1;
+	int c = rand() % numCols + 1;
+	while (board[r][c] != ' ') {
+		r = rand() % numRows + 1;
+		c = rand() % numCols + 1;
+	}
+
+	board[r][c] = 'o';
 }
 
 // printBoard:
 // prints vector board
 void Board::printBoard() {
-	mvprintw(0, 0, "Snake Game\n\r");
+	mvprintw(0, 0, "Snake Game   Score: %d\n\r", score);
 
-	initBoard();
 	placeSnake();
 	for (int r = 0; r < board.size(); r++) {
 		for (int c = 0; c < board[0].size(); c++) {

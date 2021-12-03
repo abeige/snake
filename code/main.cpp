@@ -2,60 +2,73 @@
 #include "util.h"
 using namespace std;
 
-int main() {
-	int key;
-	bool start = true;
-	bool menu = true;
-	bool game = false;
+bool startMenu(int& highScore);
+int startGame();
 
+int main() {
 	initscr();
 	noecho();
 	cbreak();
 	curs_set(0);
 	keypad(stdscr, true);
+	nodelay(stdscr, false);
 
-	printw("\n\n  Welcome to snake. ");
-	printw("\n\r   [START]  EXIT    ");
+	int highScore = 0;
+	bool exit = false;
+	while (!exit) {
+		exit = startMenu(highScore);
+	}
+
+	endwin();
+	curs_set(1);
+	return 0;
+}
+
+bool startMenu(int& highScore) {
+	bool menu = true;
+
+	erase();
+	mvprintw(0, 0, "Welcome to snake.");
+	printw("\n\rHigh Score: %d", highScore);
+	printw("\n\r [START]  EXIT    ");
+	bool start = true;
 	refresh();
 
 	while (menu) {
-		key = getch();
-		switch (key) {
+		switch (getch()) {
 			case KEY_RIGHT:
-				printw("\r    START  [EXIT]   ");
+				printw("\r  START  [EXIT]   ");
 				start = false;
 				break;
 			case KEY_LEFT:
-				printw("\r   [START]  EXIT    ");
+				printw("\r [START]  EXIT    ");
 				start = true;
 				break;
 			case KEY_RETURN:
 				if (start) {
-					menu = false;
-					game = true;
+					int score = startGame();
+					if (score > highScore)
+						highScore = score;
+					return false;
 				} else {
-					menu = false;
-					game = false;
+					return true;
 				}
 				break;
 		}
 	}
 
-	Board b;
-	while (game) {
-		erase();
-		b.initBoard();
-		b.printBoard();
-		printw("\n\r  Press return to start the game.");
-		int key = getch();
-		while (key != KEY_RETURN) {
-			key = getch();
-		}
-		b.play();
-		game = false;
-	}
-	
-	curs_set(1);
-	endwin();
-	return 0;
+	return true;
+}
+
+int startGame() {
+	Board b(20, 20);
+	erase();
+	b.initBoard();
+	b.printBoard();
+	nodelay(stdscr, false);
+	printw("\n\r  Press an arrow key to start the game.");
+	b.changeDirection();
+	erase();
+	b.play();
+	return b.getScore();
 }

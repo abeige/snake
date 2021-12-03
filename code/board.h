@@ -10,6 +10,10 @@ class Board {
 	Snake snake;
 	int numRows;
 	int numCols;
+    int score;
+
+	void placeSnake();
+    void addApple();
 
  public:
 	Board();
@@ -19,9 +23,10 @@ class Board {
 	int getNumRows();
 	void setNumCols(int c);
 	int getNumCols();
+    int getScore();
 
     void play();
 	void initBoard();
-	void placeSnake();
+    void changeDirection();
 	void printBoard();
 };

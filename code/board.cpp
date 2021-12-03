@@ -96,6 +96,7 @@ void Board::play(char startDir) {
 		usleep(SPEED);
 		frames++;
 	}
+	usleep(1500000);
 }
 
 // changeDirection:
@@ -137,20 +138,16 @@ void Board::initBoard() {
 // placeSnake:
 // gets coordinates of snake and puts it on the board
 void Board::placeSnake() {
-	int prevR, prevC;
-
 	// place head
 	NODE* cur = snake.getHead();
 	board[cur->r][cur->c] = snake.getDirection();
-	prevR = cur->r;
-	prevC = cur->c;
 	cur = cur->next;
 
 	// place segments
 	while (cur != nullptr) {
-		if (cur->r == prevR && cur->c == prevC)
-			break;
-		board[cur->r][cur->c] = BODY;
+		// prevent overwrite of snake head in collision
+		if (board[cur->r][cur->c] == ' ' || board[cur->r][cur->c] == APPLE)
+			board[cur->r][cur->c] = BODY;
 		cur = cur->next;
 	}
 }

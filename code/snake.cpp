@@ -153,7 +153,7 @@ bool Snake::moveForward(int& r, int& c) {
 
 	NODE* cur = head->next;
 	int tempR, tempC;
-	bool collide = false;
+	bool collision = false;
 	while (cur != nullptr) {
 		// swap cur->r, c with prevR, C
 		tempR = cur->r;
@@ -163,13 +163,12 @@ bool Snake::moveForward(int& r, int& c) {
 		prevR = tempR;
 		prevC = tempC;
 
-
-		// if new location of head with this segment
+		// if new location of head collides with this segment's new position
 		if (head->r == cur->r && head->c == cur->c)
-			collide = true;
+			collision = true;
 
 		cur = cur->next;
 	}
 
-	return collide;
+	return collision;
 }

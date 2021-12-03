@@ -7,16 +7,16 @@ test: test.o board.o snake.o
 run:
 	./snakegame.exe
 
-main.o: main.cpp
+main.o: main.cpp util.h
 	g++ -c main.cpp
 
-test.o: test.cpp
+test.o: test.cpp util.h
 	g++ -c test.cpp
 
-board.o: board.cpp
+board.o: board.cpp util.h
 	g++ -c board.cpp
 
-snake.o: snake.cpp
+snake.o: snake.cpp util.h
 	g++ -c snake.cpp
 
 valgrind:

@@ -108,6 +108,11 @@ void Board::placeSnake() {
 void Board::addApple() {
 	int r = rand() % numRows + 1;
 	int c = rand() % numCols + 1;
+	while (board[r][c] != ' ') {
+		r = rand() % numRows + 1;
+		c = rand() % numCols + 1;
+	}
+
 	board[r][c] = 'o';
 }
 

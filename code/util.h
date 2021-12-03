@@ -2,7 +2,7 @@
 
 #define KEY_RETURN 10
 #define SPEED 150000
-#define APPLERATE 30
+#define APPLERATE 15
 #define NORTH '^'
 #define SOUTH 'v'
 #define EAST  '>'

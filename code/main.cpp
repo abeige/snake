@@ -2,8 +2,8 @@
 #include "util.h"
 using namespace std;
 
-bool startMenu();
-bool startGame();
+bool startMenu(int& highScore);
+int startGame();
 
 int main() {
 	initscr();
@@ -13,8 +13,10 @@ int main() {
 	keypad(stdscr, true);
 	nodelay(stdscr, false);
 
-	while (startMenu()) {
-		continue;
+	int highScore = 0;
+	bool exit = false;
+	while (!exit) {
+		exit = startMenu(highScore);
 	}
 
 	endwin();
@@ -22,38 +24,43 @@ int main() {
 	return 0;
 }
 
-bool startMenu() {
-	bool start = true;
-	erase();
-	mvprintw(0, 0, "\n\n  Welcome to snake. ");
-	printw("\n\r   [START]  EXIT    ");
-	refresh();
+bool startMenu(int& highScore) {
 	bool menu = true;
+
+	erase();
+	mvprintw(0, 0, "Welcome to snake.");
+	printw("\n\rHigh Score: %d", highScore);
+	printw("\n\r [START]  EXIT    ");
+	bool start = true;
+	refresh();
 
 	while (menu) {
 		switch (getch()) {
 			case KEY_RIGHT:
-				printw("\r    START  [EXIT]   ");
+				printw("\r  START  [EXIT]   ");
 				start = false;
 				break;
 			case KEY_LEFT:
-				printw("\r   [START]  EXIT    ");
+				printw("\r [START]  EXIT    ");
 				start = true;
 				break;
 			case KEY_RETURN:
 				if (start) {
-					startGame();
-					return true;
+					int score = startGame();
+					if (score > highScore)
+						highScore = score;
+					return false;
 				} else {
-					menu = false;
+					return true;
 				}
 				break;
 		}
 	}
-	return menu;
+
+	return true;
 }
 
-bool startGame() {
+int startGame() {
 	Board b(20, 20);
 	erase();
 	b.initBoard();
@@ -63,5 +70,5 @@ bool startGame() {
 	b.changeDirection();
 	erase();
 	b.play();
-	return false;
+	return b.getScore();
 }

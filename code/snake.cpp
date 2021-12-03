@@ -106,15 +106,6 @@ NODE* Snake::getHead() const{
 	return head;
 }
 
-// getHeadCoords:
-// updates r and c with coordinates of Snake head
-void Snake::getHeadCoords(int& r, int& c) {
-	if (head == nullptr)
-		return;
-	r = head->r;
-	c = head->c;
-}
-
 // addSegment:
 // adds NODE to linked list
 void Snake::addSegment() {

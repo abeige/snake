@@ -30,7 +30,6 @@ class Snake {
     char getDirection();
     void setDirection(char d);
     NODE* getHead() const;
-    void getHeadCoords(int& r, int& c);
 
     void addSegment();
     bool moveForward(int& r, int& c);

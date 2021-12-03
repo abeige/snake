@@ -30,6 +30,6 @@ class Snake {
     void getHeadCoords(int& r, int& c);
 
     void clear();
-    void addSegment(int r, int c);
     void moveForward(int& r, int& c);
+    void addSegment();
 };

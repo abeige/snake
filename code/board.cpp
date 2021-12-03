@@ -71,7 +71,7 @@ void Board::play() {
 		if (board[r][c] == '*') {
 			hitWall = true;
 		} else if (board[r][c] == 'o') {
-			// snake.addSegment();
+			snake.addSegment();
 			score++;
 		}
 		printBoard();

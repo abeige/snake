@@ -106,28 +106,20 @@ void Snake::clear() {
 }
 
 // addSegment:
-// adds NODE to linked list with coordinates r and c
-void Snake::addSegment(int r, int c) {
-	NODE* newNode = new NODE(r, c);
+// adds NODE to linked list
+void Snake::addSegment() {
+	// this should not happen
+	if (head == nullptr)
+		throw;
 
-	// check to see if list is empty
-	if (head == nullptr) {
-		head = newNode;
-		length++;
-		return;
-	}
-
-	// traverse to end and add newNode there
+	// traverse to end
 	NODE* cur = head;
-	while (cur != nullptr) {
-		if (cur->next == nullptr) {
-			cur->next = newNode;
-			length++;
-			break;
-		}
-
+	while (cur->next != nullptr) {
 		cur = cur->next;
 	}
+
+	// new segment has the same position as the last one
+	cur->next = new NODE(cur->r, cur->c);
 }
 
 // moveForward:
